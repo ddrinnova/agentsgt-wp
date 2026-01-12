@@ -1,0 +1,70 @@
+# WordPress Core Files
+# Note: WordPress core files are typically not committed to git
+# This project includes them for LocalWP compatibility, but you may want to exclude them
+
+# WordPress Core - exclude core files (uncomment if you want to exclude WordPress core)
+# app/public/wp-admin/
+# app/public/wp-includes/
+# app/public/*.php
+# !app/public/wp-content/
+# !app/public/wp-config-sample.php
+
+# Configuration files with sensitive data
+app/public/wp-config.php
+conf/**/*.hbs
+conf/**/*.conf
+
+# Database
+app/sql/*.sql
+*.sql
+
+# Uploads directory (user-uploaded files)
+app/public/wp-content/uploads/
+
+# Logs
+logs/
+*.log
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+*.cache
+wp-content/cache/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
