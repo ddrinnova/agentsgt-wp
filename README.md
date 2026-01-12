@@ -69,66 +69,162 @@
 
 ## 🚀 Instalación Rápida
 
-### Opción 1: LocalWP (Recomendado)
+### Opción 1: LocalWP (Recomendado) ⭐
 
-Esta es la forma más fácil y rápida de configurar el proyecto.
+Esta es la forma más fácil y rápida de configurar el proyecto. **LocalWP creará automáticamente la base de datos**, así que **NO necesitas un archivo .sql**.
 
-#### Paso 1: Clonar el Repositorio
+> **💡 IMPORTANTE:** LocalWP **NO puede importar directamente desde GitHub**. Debes descargar el proyecto primero y luego copiar los archivos manualmente.
 
+#### 📥 Paso 1: Descargar el Proyecto
+
+Tienes dos opciones:
+
+**Opción A: Usando Git (Recomendado)**
 ```bash
-git clone https://github.com/tu-usuario/agentsgt-wp.git
+git clone https://github.com/ddrinnova/agentsgt-wp.git
 cd agentsgt-wp
 ```
 
-#### Paso 2: Importar en LocalWP
+**Opción B: Descargar ZIP desde GitHub**
+1. Ve a: https://github.com/ddrinnova/agentsgt-wp
+2. Haz clic en **"Code"** → **"Download ZIP"**
+3. Descomprime el archivo ZIP en tu carpeta de descargas
 
-1. Abre **LocalWP** en tu Mac
-2. Haz clic en **"Add Site"** → **"Import an existing site"**
-3. Selecciona la carpeta `app/public` del proyecto clonado
-4. Configura el nombre del sitio (ej: `agentsgt-wp.local`)
-5. LocalWP detectará automáticamente la configuración
+#### 🆕 Paso 2: Crear un Sitio Nuevo en LocalWP
 
-#### Paso 3: Configurar WordPress
+**IMPORTANTE:** Primero crea un sitio nuevo en LocalWP, luego copiaremos los archivos.
 
-1. **Copia el archivo de configuración:**
+1. Abre **LocalWP**
+2. Haz clic en **"Add Site"** → **"Create a new site"**
+3. Configura:
+   - **Site name**: `agentsgt-wp` (o el nombre que prefieras)
+   - **Environment**: Preferencias (recomendado: "Preferred")
+   - **WordPress version**: Cualquiera (se reemplazará)
+   - **PHP version**: 8.0 o superior
+   - **Web server**: Nginx (recomendado)
+   - **Database**: MySQL
+4. Haz clic en **"Add Site"**
+5. Espera a que LocalWP cree el sitio
+
+#### 📋 Paso 3: Copiar Archivos Manualmente
+
+Ahora necesitas copiar los archivos del proyecto descargado al sitio de LocalWP:
+
+1. **Abre la carpeta del sitio en LocalWP:**
+   - Haz clic derecho en el sitio → **"Reveal in Finder"** (Mac) o **"Open Site Shell"**
+   - O navega manualmente a: `~/Local Sites/agentsgt-wp/app/public/`
+
+2. **Copia el contenido de `wp-content`:**
+   
+   **Desde terminal:**
    ```bash
-   cp app/public/wp-config-sample.php app/public/wp-config.php
+   # Desde la carpeta del proyecto descargado:
+   cp -r app/public/wp-content/* ~/Local\ Sites/agentsgt-wp/app/public/wp-content/
    ```
+   
+   **O manualmente:**
+   - Abre la carpeta del proyecto descargado: `agentsgt-wp/app/public/wp-content/`
+   - Copia **TODO el contenido** (plugins, themes, etc.)
+   - Pégalo en: `~/Local Sites/agentsgt-wp/app/public/wp-content/`
+   - **Reemplaza** si te pregunta (es normal)
 
-2. **Edita `wp-config.php`** con las credenciales que LocalWP te proporciona:
+3. **Copia `wp-config-sample.php` y renómbralo:**
+   
+   **Desde terminal:**
+   ```bash
+   # Desde la carpeta del proyecto descargado:
+   cp app/public/wp-config-sample.php ~/Local\ Sites/agentsgt-wp/app/public/wp-config.php
+   ```
+   
+   **O manualmente:**
+   - Copia `app/public/wp-config-sample.php` del proyecto descargado
+   - Pégalo en `~/Local Sites/agentsgt-wp/app/public/`
+   - Renómbralo a `wp-config.php`
+
+#### ⚙️ Paso 4: Configurar wp-config.php
+
+1. **Abre `wp-config.php`** en un editor de texto (puedes hacer clic derecho → "Open with" → tu editor)
+2. **Busca las líneas de base de datos** y reemplázalas con las credenciales de LocalWP:
    ```php
-   define( 'DB_NAME', 'local' );           // Nombre de la BD de LocalWP
-   define( 'DB_USER', 'root' );            // Usuario de LocalWP
-   define( 'DB_PASSWORD', 'root' );        // Contraseña de LocalWP
-   define( 'DB_HOST', 'localhost' );       // Host de LocalWP
+   define( 'DB_NAME', 'local' );           // Siempre 'local' en LocalWP
+   define( 'DB_USER', 'root' );            // Siempre 'root' en LocalWP
+   define( 'DB_PASSWORD', 'root' );        // Siempre 'root' en LocalWP
+   define( 'DB_HOST', 'localhost' );       // Siempre 'localhost' en LocalWP
    ```
 
 3. **Genera nuevas keys de seguridad:**
    - Ve a: https://api.wordpress.org/secret-key/1.1/salt/
-   - Copia todas las keys generadas
-   - Reemplaza las keys en `wp-config.php` (líneas 52-60)
+   - Copia **TODAS las keys generadas** (8 líneas completas)
+   - Reemplaza las keys en `wp-config.php` (líneas 52-60 aproximadamente)
+   - Debe verse así:
+     ```php
+     define( 'AUTH_KEY',         'tu-key-aqui...' );
+     define( 'SECURE_AUTH_KEY',  'tu-key-aqui...' );
+     // ... etc
+     ```
 
-4. **Inicia el sitio en LocalWP:**
-   - Haz clic en **"Start"** en LocalWP
-   - Espera a que el sitio esté listo
+#### 🚀 Paso 5: Iniciar el Sitio
 
-#### Paso 4: Instalar WordPress
+1. En **LocalWP**, haz clic en **"Start"** en tu sitio
+2. Espera a que el sitio esté listo (ícono verde)
 
-1. Abre `http://agentsgt-wp.local` en tu navegador
-2. Sigue el asistente de instalación de WordPress:
+#### 🌐 Paso 6: Instalar WordPress
+
+1. Haz clic en **"Open Site"** en LocalWP o ve a `http://agentsgt-wp.local`
+2. WordPress detectará que necesita instalación
+3. Sigue el asistente de instalación:
+   - **Idioma**: Selecciona tu idioma
    - **Título del sitio**: Elige un nombre
-   - **Usuario**: Crea un usuario administrador
-   - **Contraseña**: Crea una contraseña segura
+   - **Usuario administrador**: Crea un usuario
+   - **Contraseña**: Crea una contraseña segura (guárdala)
    - **Email**: Tu email de administrador
+4. Haz clic en **"Instalar WordPress"**
 
-#### Paso 5: Activar el Plugin
+> **💡 Nota:** WordPress creará automáticamente la base de datos. **NO necesitas importar un archivo .sql**.
 
-1. Ve a **WordPress Admin** → **Plugins**
-2. Busca **"AgentSGT Widget"**
-3. Haz clic en **"Activar"**
-4. Ve a **AgentSGT Widget** → **Settings** para configurar
+#### 🔌 Paso 7: Activar el Plugin AgentSGT
 
-✅ **¡Listo!** Tu sitio está funcionando.
+1. Una vez instalado WordPress, ve a **WordPress Admin**
+2. Ve a **Plugins** → **Plugins instalados**
+3. Busca **"AgentSGT Widget"**
+4. Haz clic en **"Activar"**
+5. Ve a **AgentSGT Widget** → **Settings** para configurar
+
+✅ **¡Listo!** Tu sitio está funcionando con el plugin AgentSGT instalado.
+
+---
+
+### 🔍 Solución de Problemas Comunes en LocalWP
+
+#### ❌ Error: "No se encuentra wp-content folder"
+
+**Solución:**
+- Asegúrate de copiar el contenido **DENTRO** de `wp-content/`, no la carpeta misma
+- La estructura debe ser: `app/public/wp-content/plugins/...`
+- **NO debe ser:** `app/public/wp-content/wp-content/plugins/...`
+
+#### ❌ Error: "Necesita un archivo .sql"
+
+**Solución:**
+- **NO necesitas un archivo .sql** para empezar
+- WordPress creará la base de datos automáticamente durante la instalación
+- Si quieres datos de ejemplo, puedes importarlos después desde **Tools** → **Import** en WordPress Admin
+
+#### ❌ Error: "No puedo importar desde GitHub"
+
+**Solución:**
+- LocalWP **NO puede importar directamente desde GitHub**
+- Debes descargar el proyecto primero (Git o ZIP)
+- Luego crear un sitio nuevo en LocalWP
+- Finalmente copiar los archivos manualmente (como se explica arriba)
+
+#### ❌ El plugin no aparece
+
+**Solución:**
+- Verifica que copiaste la carpeta `wordpress-plugin` dentro de `wp-content/plugins/`
+- La ruta debe ser: `app/public/wp-content/plugins/wordpress-plugin/agentsgt-widget.php`
+- Recarga la página de Plugins en WordPress Admin (F5)
+- Si aún no aparece, verifica los permisos de la carpeta
 
 ---
 
@@ -139,7 +235,7 @@ Si prefieres usar tu propio servidor web.
 #### Paso 1: Clonar el Repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/agentsgt-wp.git
+git clone https://github.com/ddrinnova/agentsgt-wp.git
 cd agentsgt-wp
 ```
 
